@@ -1,0 +1,21 @@
+{% extends "layout.html" %} {% block body %}
+<div class="form">
+  <form method="post">
+    <h4>Create a new channel</h4>
+
+    <h4 style="color:red;font-size:12px;">{{ a_message }}</h4>
+    <br />
+    <input id="new_channel" type="text" name="channel-name" placeholder="Enter Channel Name" />
+    <br />
+    <button id="button_channel" type="submit">Create</button>
+  </form>
+
+  <ul>
+    {% for item in users %}
+    <li> {{ item[] }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+{% endblock %}

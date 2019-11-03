@@ -1,0 +1,543 @@
+$blue: #051837;
+$lightblue: #0f437b;
+$pink: rgb(209, 31, 97);
+$fontfamily: "Montserrat", sans-serif;
+
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
+
+header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  div.link {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    #link {
+      text-decoration: none;
+      margin: {
+        top: 15px;
+        left: 40px;  
+        right: 40px;
+      }
+      font: {
+        family: $fontfamily;
+        size: 14px;
+        weight: 600;
+      }
+      color: $lightblue;
+    }
+    a#small-title {
+      text-decoration: none;
+      margin: {
+        top: 15px;
+        left: 40px;  
+        right: 40px;
+      }
+      font: {
+        family: $fontfamily;
+        size: 14px;
+        weight: 800;
+        style: oblique;
+      }
+  
+      color: $blue;
+    }
+
+  }
+  
+  h1 {
+    margin: {
+      top: 0px;
+      bottom: 10px;
+    }
+    font: {
+      family: $fontfamily;
+      size: 32px;
+      weight: 800;
+      style: oblique;
+    }
+
+    color: $blue;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  form {
+    h4 {
+      margin: {
+        top: 0px;
+        bottom: 20px;
+      }
+      font: {
+        family: $fontfamily;
+        size: 15px;
+        weight: 600;
+      }
+      color: $blue;
+    }
+    margin-top: 120px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input {
+      width: 375px;
+      height: 45px;
+      border: 1px solid $blue;
+      border-radius: 5px;
+      font: {
+        family: $fontfamily;
+        size: 15px;
+        weight: 400;
+      }
+      color: rgba(0, 0, 0, 0.75);
+      text-align: center;
+    }
+
+    .names {
+      display: flex;
+      justify-content: center;
+      input {
+        width: 180px;
+        height: 45px;
+        border: 1px solid $blue;
+        border-radius: 5px;
+        font: {
+          family: $fontfamily;
+          size: 15px;
+          weight: 400;
+        }
+        color: rgba(0, 0, 0, 0.75);
+        text-align: center;
+      }
+      #names {
+        margin-right: 10px;
+      }
+    }
+    
+  
+    }
+    button {
+      margin-top: 20px;
+      width: 160px;
+      height: 45px;
+      border: 1px solid rgba(0, 0, 0, 0);
+      border-radius: 30px;
+      background-color: $pink;
+      font: {
+        family: $fontfamily;
+        size: 15px;
+        weight: 600;
+      }
+      color: #ffffff;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: $blue;
+    font-weight: 700;
+  }
+  h5 {
+    margin: {
+      top: 40px;
+      bottom: 0px;
+    }
+    font: {
+      family: $fontfamily;
+      size: 12px;
+      weight: 500;
+    }
+    color: $lightblue;
+  }
+
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: {
+    top: 120px;
+  }
+
+  .image {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    img {
+      width: 100px;
+      height: 100px;
+      border: 1px solid rgba(0, 0, 0, 0);
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    h5 {
+      margin: {
+        top: 30px;
+        bottom: 0px;
+      }
+      font: {
+        family: $fontfamily;
+        size: 15px;
+        weight: 600;
+      }
+      color: $blue;
+    }
+    #oblique {
+      margin-top: 0px;
+      font: {
+        family: $fontfamily;
+        size: 15px;
+        weight: 400;
+        style: oblique;
+      }
+      color: $blue;
+    }
+  }
+}
+.line {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  width: 400px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.channel-list {
+  a {
+    text-decoration: none;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  h5 {
+    margin: {
+      top: 30px;
+      bottom: 10px;
+    }
+    font: {
+      family: $fontfamily;
+      size: 15px;
+      weight: 700;
+    }
+    color: $blue;
+    opacity: 0.75;
+  }
+  #channel_name {
+    margin: {
+      top: 10px;
+      bottom: 0px;
+    }
+    padding: 5px;
+    font: {
+      family: $fontfamily;
+      size: 15px;
+      weight: 400;
+      style: oblique;
+    }
+    color: $blue;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 15px;
+
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.add-channel {
+  a {
+    text-decoration: none;
+    color: $lightblue;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  h5 {
+    margin: {
+      top: 45px;
+      bottom: 10px;
+    }
+    font: {
+      family: $fontfamily;
+      size: 15px;
+      weight: 700;
+    }
+
+    color: $lightblue;
+  }
+
+  
+}
+
+//msgs
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .channels {
+    a {
+      text-decoration: none;
+    
+    }
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    h5 {
+      margin: {
+        top: 30px;
+        bottom: 10px;
+      }
+      font: {
+        family: $fontfamily;
+        size: 15px;
+        weight: 700;
+      }
+      color: $blue;
+      opacity: 0.75;
+    }
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+
+      #channel_name {
+        margin: {
+          left: 0px;
+          right: 20px;
+          top: 0px;
+          bottom: 0px;
+        }
+        padding: 5px;
+        font: {
+          family: $fontfamily;
+          size: 15px;
+          weight: 400;
+          style: oblique;
+        }
+        color: $blue;
+        background-color: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0);
+        border-radius: 15px;
+
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: #ffffff;
+        width: 25px;
+        height: 25px;
+        border: 1px solid rbga(0, 0, 0, 0);
+        border-radius: 50%;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+  .channel-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: {
+        top: 30px;
+        bottom: 120px;
+      }
+      h5 {
+        margin: {
+          top: 5px;
+          bottom: 0px;
+        }
+        font: {
+          family: $fontfamily;
+          size: 14px;
+          weight: 600;
+        }
+        color: $blue;
+      }
+      #user-name {
+        margin: {
+          top: 5px;
+          bottom: 0px;
+        }
+        font: {
+          family: $fontfamily;
+          size: 14px;
+          weight: 400;
+          style: oblique;
+        }
+        color: $blue;
+      }
+    }
+  }
+  .msg-body {
+    display: flex;
+    flex-direction: column;
+    flex-direction: column;
+    align-items: center;
+    width: 1150px;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 15px;
+
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+
+    .msgs-only {
+      margin-top: 25px;
+      width: 73%;
+      ul {
+        list-style: none;
+        padding: 0px;
+        li {
+          #msg {
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            img {
+              width: 60px;
+              height: 60px;
+              border: 1px solid rgba(0, 0, 0, 0);
+              border-radius: 50%;
+              object-fit: cover;
+              margin-right: 20px;
+            }
+            .the-message {
+              h5 {
+                margin: {
+                  top: 5px;
+                  bottom: 0px;
+                }
+                font: {
+                  family: $fontfamily;
+                  size: 14px;
+                  weight: 700;
+                }
+                color: $blue;
+              }
+              #msg {
+                margin: {
+                  top: 5px;
+                  bottom: 0px;
+                }
+                font: {
+                  family: $fontfamily;
+                  size: 14px;
+                  weight: 400;
+                }
+                color: $blue;
+              }
+              h6 {
+                margin: {
+                  top: 5px;
+                  bottom: 0px;
+                }
+                font: {
+                  family: $fontfamily;
+                  size: 11px;
+                  weight: 400;
+                }
+                color: $blue;
+                opacity: 0.5;
+              }
+            }
+          }
+        }
+      }
+    }
+    .submit_area {
+      width: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      input {
+        width: 70%;
+        height: 45px;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        margin-bottom: 25px;
+        font: {
+          family: $fontfamily;
+          size: 14px;
+          weight: 400;
+        }
+        color: rgba(0, 0, 0, 0.75);
+       padding-left: 15px;
+      }
+      button {
+      width: 10%;
+      margin-bottom: 25px;
+      margin-left: 5px;
+
+      height: 45px;
+      border: 1px solid rgb(209, 31, 97);
+      border-radius: 5px;
+      background-color: $pink;
+      font: {
+        family: $fontfamily;
+        size: 15px;
+        weight: 600;
+      }
+      color: #ffffff;
+      }
+    }
+    }
+
+}
+
+
+//axctive button
+
+.active {
+  margin: {
+    left: 0px;
+    right: 20px;
+    top: 0px;
+    bottom: 0px;
+  }
+  padding: 5px;
+  font: {
+    family: $fontfamily;
+    size: 15px;
+    weight: 600;
+    style: oblique;
+  }
+  color: #ffffff;
+  background-color:$pink;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 15px;
+
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}

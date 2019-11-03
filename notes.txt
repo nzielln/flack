@@ -1,0 +1,41 @@
+1. User logs in
+    If username is already in use, prompt user to create a new one
+    If username is unique, take them to the create a new channel page
+        Add name to username array
+2. User creates a new channel if one doesn't already exist
+    Add channel name to channel list
+    go to channel
+
+
+
+    How to store all these data
+    Array for username and channel list
+    user_names = {
+        "user_name": ["user_name":"user_name", "first_name":"John", "last_name":"Doe]
+    }
+
+
+    channels = []
+
+
+    How to store all the messages
+    Need: username, date, and message
+
+    channel_msgs = {
+        'channel_name': {"username": "blah", "date":"blah", "message":"blah"},{"username": "blah", "date":"blah", "message":"blah"},
+
+
+    }
+add to channel_msgs
+    channel_msgs[channel_name]=[]
+add to channel_name
+    user_message = {"username": "session.getuser", date="datetime", "message":.....get("message)}
+    channel_msgs['channel_msgs].append
+
+
+JAVASCRIPT
+
+1. When channel is opened, set channel name to localStorage
+2. When message is submitted, send localStorage for channel name
+3. When message is received, only if session[channel_name] matches localStorage, then emit the message
+4. In JS, only append in data from Flask mactches localStorage.

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>flack.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/11f304f5ee.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+
+    <script type = "text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+
+
+    <link rel="stylesheet" href="../static/styles/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <header>
+    <div class="link">
+        <a id="small-title" href="{{ url_for('index') }}">flack.</a>
+
+      <a id="link" href="{{ url_for('logout') }}">Log out</a>
+    </div>
+  </header>
+  <div class="body">
+    <div class="channels">
+      <h5>Channels</h5>
+      <div id="list">
+
+          {% for channel in channel_list %}
+          <a href="{{ url_for('channel', channel_name=channel) }}"><h5 id="channel_name">#_{{  channel }}</h5></a>
+          {% endfor %}
+          
+        <a href="{{ url_for('create') }}"><i class="fas fa-plus-circle" style="color:#d11f61;"></i></a>
+      </div>
+    </div>
+    <div class="channel-body">
+      <div class="title">
+         <h5>{{ channel_name }}</h5>
+        <h5 id="user-name">{{ username }}</h5>
+      </div>
+      <div class="msg-body">
+        <div class="msgs-only">
+          <ul id="msgss">
+              {% if messages  %}
+              {% for message in messages  %}
+            <li>
+              <div id="msg">
+                <img
+                  src="../static/imgs/{{ message['image'] }}"/>
+                <div class="the-message">
+                  <h5>{{ message['username'] }}</h5>
+                  <h5 id="msg">{{ message['message'] }}</h5>
+                  <h6 id="time">{{ message['date'] }}</h6>         
+              </div>
+              </div>
+            </li> 
+            {% endfor  %}
+            {% endif  %}
+            <br>
+          </ul>
+        </div>
+        <div class="submit_area">
+        <input id="message" name="message" type="text" placeholder="Send a message to #_{{ channel_name }}" />
+        <button id="send_btn">Send</button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+</html>

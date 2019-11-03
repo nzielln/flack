@@ -1,0 +1,30 @@
+{% extends "layout.html" %} {% block body %}
+<div class="bottom">
+  <div class="image">
+    <img id="img" src="../static/imgs/{{ user['image'] }}" />
+  </div>
+  <div class="info">
+    <h5>{{ user['firstname'] }} {{ user['lastname'] }}</h5>
+    <h5 id="oblique">{{ username }}</h5>
+  </div>
+  <div class="line"></div>
+
+  <div class="channel-list" id="list">
+    <h5>Channels</h5>
+    {%- if channel_list -%}
+    {%- for channel in channel_list -%}
+    <a href="{{ url_for('channel', channel_name=channel) }}"><h5 id="channel_name">#_{{  channel }}</h5></a>
+    {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <div class="add-channel">
+    <a href="{{ url_for('create') }}"><h5>Create a new channel</h5></a>
+    <a href="{{ url_for('create') }}"><i class="fas fa-plus-circle " style="color:#d11f61;font-size:25px;"></i></a>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

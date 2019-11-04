@@ -18,59 +18,55 @@ pro_photo = ["adil-zhanbyrbayev-PMfjeWpz0Tc-unsplash.jpg","clement-eastwood-Gtz3
     
 now = datetime.time(datetime.now())
 time = now.strftime("%-I:%M %p") 
-print(f"{time}")
-
-message_list = dict()
-user_channel_list = dict()
-users = dict()
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    username = request.form.get("username")
-    firstname = request.form.get("firstname")
-    lastname = request.form.get("lastname")
+    
     a_message = "Please choose a different username."
        
-    if request.method == "GET":                
+    if request.method == "GET" and session.get("users"): 
+        if session.get("user_name"):            
+            return render_template("profile.html", username=session["user_name"], user=session["users"][session["user_name"]], channel_list=session["users"][session["user_name"]]["channel_list"])
         return render_template("index.html")
-    
-        
 
-    if request.method == "POST":
-        if username in users:
+    if request.method == "POST" and not session.get("user_name"):
+        session["users"] = {}
+        session["channel_messages"] = {}
+        username = request.form.get("username")
+        firstname = request.form.get("firstname")
+        lastname = request.form.get("lastname")
+        if username in session["users"]:
             return render_template("index.html", a_message=a_message)
-        newuser = {username: {"username": username, "firstname": firstname, "lastname": lastname, "image": random.choice(pro_photo), "channel_list":['welcome']}}
-            
-        #permenant storage
-        users.update(newuser)
-        # new_user_channel_list = {username: []}
-        # user_channel_list.update(new_user_channel_list)
-        # user_channel_list[username].append('welcome')
         session["user_name"] = username
-            
-        return render_template("profile.html", username=session["user_name"], user=users[username], channel_list=users[username]["channel_list"])
+        newuser = {username: {"username": username, "firstname": firstname, "lastname": lastname, "image": random.choice(pro_photo), "channel_list":['welcome']}}
+        welcome_channel = {'welcome': []}
+        session["channel_messages"].update(welcome_channel)
+        #permenant storage
+        session["users"].update(newuser)
         
-    return render_template("profile.html", username=session["user_name"], user=users[username], channel_list=users[username]["channel_list"])     
+        return render_template("profile.html", username=session["user_name"], user=session["users"][session["user_name"]], channel_list=session["users"][session["user_name"]]["channel_list"])
+        
+    return render_template("index.html")
 
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
     username = request.form.get("username")
-    if request.method == "GET":
+    if request.method == "GET" and session.get("users"):
         if session.get("user_name"): 
             username = session.get("user_name")
-            channel_list = user_channel_list[username]                
-            return render_template("profile.html", username=session["user_name"], user=users[username], channel_list=users[username]["channel_list"])
+            channel_list = session["users"][username]["channel_list"]               
+            return render_template("profile.html", username=session["user_name"], user=session["users"][session["user_name"]], channel_list=channel_list)
         else: 
             return render_template("signin.html")
         
 
-        if request.method == "POST" and username in users:
+        if request.method == "POST" and username in session["users"]:
            
             session["user_name"] = username
-            channel_list = user_channel_list[username]
+            channel_list = session["users"][username]["channel_list"]
             
             
-            return render_template("profile.html", username=session["user_name"], user=users[username], channel_list=users[username]["channel_list"])
+            return render_template("profile.html", username=session["user_name"], user=session["users"][session["user_name"]], channel_list=channel_list)
     return render_template("signin.html")
 
 
@@ -78,18 +74,16 @@ def signin():
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
         
-    if request.method == "GET":
-        if not users:
-            return render_template("index.html")
-        if session.get("user_name"): 
-            username = session.get("user_name")
-            # channel_list = user_channel_list[username]
-            user_info = users[username]
+    if not session["users"]:
+        return render_template("index.html")
+    if session.get("user_name"): 
+        username = session.get("user_name")
+        # channel_list = user_channel_list[username]
+        user_info = session["users"][username]
                 
                 
-            return render_template("profile.html", username=session["user_name"], user=user_info, channel_list=users[username]["channel_list"])
+        return render_template("profile.html", username=session["user_name"], user=user_info, channel_list=session["users"][username]["channel_list"])
         
-
     return render_template("signin.html")
 
 
@@ -101,47 +95,41 @@ def create():
     if request.method == "GET":
         return render_template("create.html")
     
-    if request.method == "POST" and channel_name not in message_list:
+    if request.method == "POST":
         
-        # the_list = session["users"][username]["channel_list"]
-        # the_list.append(channel_name)
+        the_list = session["users"][username]["channel_list"]
+        the_list.append(channel_name)
         new_message_list = {channel_name: []}
         welcome_message = {"username": "Flack", "date": time, "message": "Welcome!", "image": "artur-tumasjan-IDbeTFgI9As-unsplash.jpg"}
-        # session["channel_messages"].update(new_message_list)
-        message_list.update(new_message_list)
-        message_list[channel_name].append(welcome_message)
-        
-        users[username]["channel_list"].append(channel_name)
-        
-        return render_template("msgs.html", messages=message_list[channel_name], channel_name=channel_name, username=session["user_name"], user=users[session["user_name"]], channel_list=users[username]["channel_list"])
+        session["channel_messages"].update(new_message_list)
+        session["channel_messages"][channel_name].append(welcome_message)
     
-    return render_template("create.html", a_message=a_message)
+        
+        return render_template("msgs.html", messages=session["channel_messages"][channel_name], channel_name=channel_name, username=session["user_name"], user=session["users"][session["user_name"]], channel_list=session["users"][session["user_name"]]["channel_list"])
+    
+    return render_template("create.html", users=session["users"], a_message=a_message)
 
-@app.route("/channel/<channel_name>")
+@app.route("/channel/<channel_name>", methods=["GET", "POST"])
 def channel(channel_name):
     username = session.get('user_name')
     session["channel_name"] = channel_name
 
     if channel_name == 'welcome':
-        welcome = {'welcome': []}
-        message_list.update(welcome)
         welcome_msg = {"username": "flack", "date": time, "message": "Welcome to flack!", "image": "artur-tumasjan-IDbeTFgI9As-unsplash.jpg" }
-        message_list['welcome'].append(welcome_msg)
+        session["channel_messages"]['welcome'].append(welcome_msg)
     
-        return render_template("msgs.html", messages=message_list[channel_name], channel_name=channel_name, username=session["user_name"], user=users[username], channel_list=users[username]["channel_list"])
+        return render_template("msgs.html", messages=session["channel_messages"][channel_name], channel_name=channel_name, username=session["user_name"], user=session["users"][username], channel_list=session["users"][username]["channel_list"])    
     
-    return render_template("msgs.html", messages=message_list[channel_name], channel_name=channel_name, username=session["user_name"], user=users[username], channel_list=users[username]["channel_list"])
-    
-    
-    # if request.method == "POST":
-    #     session["channel_name"] = channel_name
-    #     username = session.get('user_name')
-    #     messages = session["channel_messages"][channel_name] 
-    #     new_message = {username: session["user_name"], "date": time, "message": message, "image": session["users"][username]["image"]}
-    #     messages.append(new_message)
-            
-            
-    #     return render_template("msgs.html", messages=messages, username=session["user_name"], user=session["users"][username], channel_name=channel_name, channel_list=channel_list)
+    if request.method == "POST":
+        session["channel_name"] = channel_name
+        username = session.get('user_name')
+        messages = session["channel_messages"][channel_name] 
+        channel_list = session["users"][username]['channel_list']
+        new_msg = {"username": session["user_name"], "date": time, "message": request.form.get("message"), "image": session["users"][username]['image'] }
+        messages.append(new_msg)
+        
+        return render_template("msgs.html", messages=messages, username=session["user_name"], user=session["users"][username], channel_name=channel_name, channel_list=channel_list)
+    return render_template("msgs.html", messages=session["channel_messages"][channel_name], channel_name=channel_name, username=session["user_name"], user=session["users"][username], channel_list=session["users"][username]["channel_list"]) 
         
 @socketio.on("channel get")
 def channel_get():
@@ -151,18 +139,7 @@ def channel_get():
     emit("send channel", {
         "channel_name" : channel_name,
         "username" : username}, broadcast=True)
-    
-@socketio.on("new channel")
-def new_channel(data):
-    username = session.get("user_name")
-    user_from = data["username"]
-    if username == user_from:
-        channel_list = users[username]["channel_list"]
-        channel_list.append(data["new_channel"])
-        channel_name = data["new_channel"]
-    
-    emit("show channel", {**{"channel_name": channel_name}, **{"username": str(session[("user_name")])}}, broadcast=True)
-                
+            
         
 @socketio.on("send message")
 def message(data):
@@ -170,9 +147,9 @@ def message(data):
     channel_name = session.get("channel_name")
     channel_from = data["channel_name"]
     if channel_name == channel_from:
-        new_msg = {"username": session["user_name"], "date": time, "message": data['new_msg'], "image": users[username]['image'] }
+        new_msg = {"username": session["user_name"], "date": time, "message": data['new_msg'], "image": session["users"][username]['image'] }
         
-        message_list[channel_name].append(new_msg)
+        session["channel_messages"][channel_name].append(new_msg)
             
         emit("show message", {**new_msg, **{"channel_name": str(session["channel_name"])}}, broadcast=True)
 
@@ -180,6 +157,7 @@ def message(data):
 def logout():
     session['user_name'] = ""
     session["channel_name"] = ""
+    session["channel_messages"] = ""
 
     return redirect("/")
 

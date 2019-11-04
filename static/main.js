@@ -12,25 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const button = document.querySelector('#send_btn');
         const message = document.querySelector('#message');
-
-        button.onclick = () => {
-            const new_msg = message.value;
-            const fromChannel = sessionStorage.getItem("channel_name");
-                    
-            socket.emit('send message', {'new_msg': new_msg, 'channel_name': fromChannel});
-            message.value = "";
+        
+        message.addEventListener("keypress", (event) => {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                button.click();
             }
-
-        const channel_button = document.querySelector('#button_channel');
-        const channel_create = document.querySelector('#new_channel');
-
-        channel_button.onclick = () => {
-            const new_channel = channel_create.value;
-            const onUser = sessionStorage.getItem("user_name");
-
-            socket.emit('new channel', {'new_channel': new_channel, 'username': onUser});
-            channel_create.value = "";
+        })
+        
+        button.onclick = () => {
+        const new_msg = message.value;
+        const fromChannel = sessionStorage.getItem("channel_name");
+                    
+        socket.emit('send message', {'new_msg': new_msg, 'channel_name': fromChannel});
+        message.value = "";
         }
+
+
+        
     
         });
 
@@ -64,27 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             liMsg.append(div1);
 
             document.querySelector('#msgss').append(liMsg);
-
-
-        }
-
-
-    });
-
-    socket.on('show channel', data => {
-        const user_name = data["username"];
-
-        if (user_name == sessionStorage.getItem("user_name")) {
-
-            const a = document.createElement('a');
-            const divList = document.querySelector('#list');
-
-            a.setAttribute("href", "{{ url_for('channel', channel_name=channel) }}")
-
-            a.innerHTML = `<h5 id="channel_name">#_${data["channel_name"]}</h5>`
-
-            divList.append(a);
-
 
 
         }

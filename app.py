@@ -17,7 +17,7 @@ socketio = SocketIO(app)
 pro_photo = ["adil-zhanbyrbayev-PMfjeWpz0Tc-unsplash.jpg","clement-eastwood-Gtz39oChT0A-unsplash.jpg","gemma-chua-tran-qGRKrp7ITqw-unsplash.jpg","gemma-chua-tran-qGRKrp7ITqw-unsplash.jpg","gemma-chua-tran-qGRKrp7ITqw-unsplash.jpg","in-lieu-in-view-photography-6ZXoZALOBWE-unsplash.jpg", "isaac-owens-W55q-GkyrzA-unsplash.jpg", "johan-de-jager--olnD7LIpD0-unsplash.jpg", "johan-de-jager-Os7h_zifF0Y-unsplash.jpg", "johan-de-jager-Os7h_zifF0Y-unsplash.jpg", "johan-de-jager-Os7h_zifF0Y-unsplash.jpg"]
     
 now = datetime.time(datetime.now())
-time = now.strftime("%-I:%M %p") 
+time = now.strftime("%H:%M %p") 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -146,8 +146,9 @@ def message(data):
     username = session.get('user_name')
     channel_name = session.get("channel_name")
     channel_from = data["channel_name"]
+    
     if channel_name == channel_from:
-        new_msg = {"username": session["user_name"], "date": time, "message": data['new_msg'], "image": session["users"][username]['image'] }
+        new_msg = {"username": session["user_name"], "date": data['time'], "message": data['new_msg'], "image": session["users"][username]['image'] }
         
         session["channel_messages"][channel_name].append(new_msg)
             

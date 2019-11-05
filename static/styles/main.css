@@ -378,6 +378,9 @@ h5 {
   justify-content: center;
   align-items: center;
 }
+.body .msg-body .submit_area form {
+  width: 82%;
+}
 .body .msg-body .submit_area input {
   width: 70%;
   height: 45px;

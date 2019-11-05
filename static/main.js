@@ -23,10 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         button.onclick = () => {
         const new_msg = message.value;
         const fromChannel = sessionStorage.getItem("channel_name");
+        const userName = sessionStorage.getItem("user_name");
+
         let get_time = new Date();
         const time = get_time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                     
-        socket.emit('send message', {'new_msg': new_msg, 'time': time, 'channel_name': fromChannel});
+        socket.emit('send message', {'new_msg': new_msg, 'time': time, 'channel_name': fromChannel, 'username': userName });
         message.value = "";
         }
 

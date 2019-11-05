@@ -481,6 +481,9 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
+      form {
+        width: 82%;
+      }
 
       input {
         width: 70%;

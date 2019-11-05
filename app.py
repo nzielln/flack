@@ -122,9 +122,9 @@ def channel(channel_name):
                 session["channel_messages"]['welcome'].pop(0)
         
             return render_template("msgs.html", messages=session["channel_messages"][channel_name], channel_name=channel_name, username=session["user_name"], user=session["users"][username], channel_list=session["users"][username]["channel_list"])    
-        if len(session["channel_messages"][channel_name]) > 5:
+        if len(session["channel_messages"][channel_name]) > 100:
             session["channel_messages"][channel_name].remove(session["channel_messages"][channel_name][0])
-        if len(session["channel_messages"][channel_name]) > 5:
+        if len(session["channel_messages"][channel_name]) > 100:
             session["channel_messages"][channel_name].pop(0)
         session["channel_name"] = channel_name
         username = session.get('user_name')
